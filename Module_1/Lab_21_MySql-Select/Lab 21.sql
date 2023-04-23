@@ -19,7 +19,7 @@ left join publications.publishers p
     
 # Challenge 2: how many titles each author has published at each publisher. count group by
 
-select a.au_id, concat(a.au_fname,' ',a.au_lname) as author, p.pub_name as pubnisher, count(t.title_id) as number_of_titles
+select a.au_id as "Author ID", concat(a.au_fname,' ',a.au_lname) as "Author", p.pub_name as "Pubnisher", count(t.title_id) as "Number of titles"
 from publications.authors a
 inner join publications.titleauthor ta 
 	on a.au_id = ta.au_id
@@ -29,7 +29,7 @@ inner join publications.publishers p
 	on t.pub_id = p.pub_id
 group by a.au_id, p.pub_name;
 
-select sum(number_of_titles) as total_titles
+select sum(number_of_titles) as "Total of titles"
 from (
   select count(distinct title_id) as number_of_titles
   from publications.titleauthor ta
@@ -40,7 +40,7 @@ select count(title_id) from publications.titleauthor;
 
 # Challenge 3 - Best Selling Authors
 
-select a.au_id as author_id, a.au_lname as last_name, a.au_fname as first_name, count(t.title_id) as total
+select a.au_id as "Author ID", a.au_lname as "Last name", a.au_fname as "First name", count(t.title_id) as "Total"
 from publications.authors a
 inner join publications.titleauthor ta
 	on a.au_id = ta.au_id
@@ -51,7 +51,7 @@ order by count(t.title_id) desc limit 3;
 
 # Challenge 4 - Best Selling Authors Ranking
 
-select a.au_id as author_id, a.au_lname as last_name, a.au_fname as first_name, count(t.title_id) as total
+select a.au_id as "Author ID", a.au_lname as "Last name", a.au_fname as "First name", count(t.title_id) as "Total"
 from publications.authors a
 inner join publications.titleauthor ta
 	on a.au_id = ta.au_id
